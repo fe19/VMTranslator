@@ -9,3 +9,5 @@
 
 # Own files and folder to ignore
 ../out/*
+
+../output.txt

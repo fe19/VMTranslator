@@ -18,12 +18,11 @@ public class Main {
 
     private static void writeFile(String filename) {
 
-        System.out.println("Write file " + filename);
-
         try {
-            FileWriter myWriter = new FileWriter(filename);
-            myWriter.write("Files in Java might be tricky, but it is fun enough!");
-            myWriter.close();
+            FileWriter fileWriter = new FileWriter(filename);
+            fileWriter.write("First line");
+            fileWriter.write("Next line");
+            fileWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
