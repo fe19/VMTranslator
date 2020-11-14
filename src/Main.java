@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Input: name.vm
@@ -13,6 +16,20 @@ public class Main {
     public static void main(String[] args) {
 
         writeFile(filename);
+        readFile(filename);
+
+    }
+
+    private static void readFile(String filename) {
+        try {
+            FileReader fileReader = new FileReader(filename);
+            Scanner scanner = new Scanner(fileReader);
+            while (scanner.hasNext()) {
+                System.out.println(scanner.next());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -20,8 +37,8 @@ public class Main {
 
         try {
             FileWriter fileWriter = new FileWriter(filename);
-            fileWriter.write("First line");
-            fileWriter.write("Next line");
+            fileWriter.write("First line\n");
+            fileWriter.write("Next line\n");
             fileWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
