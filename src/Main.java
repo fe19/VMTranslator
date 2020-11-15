@@ -11,34 +11,40 @@ import java.util.Scanner;
  */
 public class Main {
 
-    static String filename = "output.txt";
+    static String filename = "example";
 
     public static void main(String[] args) {
 
-        writeFile(filename);
-        readFile(filename);
+        String result = readFile(filename);
+        writeFile(result, filename);
 
     }
 
-    private static void readFile(String filename) {
+    private static String readFile(String filename) {
+        StringBuilder result = new StringBuilder();
+        Parser parser = new Parser();
+
         try {
-            FileReader fileReader = new FileReader(filename);
+            FileReader fileReader = new FileReader(filename + ".vm");
             Scanner scanner = new Scanner(fileReader);
-            while (scanner.hasNext()) {
-                System.out.println(scanner.next());
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println("Line = " + line);
+                result.append(parser.parseLine(line));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
+        return result.toString();
     }
 
-    private static void writeFile(String filename) {
+    private static void writeFile(String content, String filename) {
 
         try {
-            FileWriter fileWriter = new FileWriter(filename);
-            fileWriter.write("First line\n");
-            fileWriter.write("Next line\n");
+            FileWriter fileWriter = new FileWriter(filename + ".asm");
+            fileWriter.write(content);
             fileWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
