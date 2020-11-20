@@ -1,23 +1,31 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 /**
- * Parses each VM command in its lexical elements. Ignores spaces.
+ * Parses a VM file.
+ * Reads a VM command and parses it into its lexical elements.
  */
 public class Parser {
 
-    public String parseLine(String line) {
-        StringBuilder assembly = new StringBuilder();
-        CodeWriter codeWriter = new CodeWriter();
+    FileReader fileReader;
+    String currentCommand;
 
-        Scanner scanner = new Scanner(line);
-        while (scanner.hasNext()) {
-            String literal = scanner.next();
-            System.out.println("Literal = " + literal);
-            if (literal.equals("push")) {
-                assembly.append(codeWriter.emitPush(literal));
-            }
-        }
-
-        return assembly.toString();
+    public Parser(String filename) throws FileNotFoundException {
+        fileReader = new FileReader(filename);
     }
+
+    public void advance(){
+        // go through file line by line. A line corresponds to a VM command.
+        Scanner scanner = new Scanner(fileReader);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            // ignore spaces and comments
+            System.out.println("VM command = " + line);
+        }
+        // for each
+
+    }
+
 }

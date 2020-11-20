@@ -1,14 +1,27 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
- * Writes assembly code.
+ * Generates assembly code from the parsed VM command.
  */
 public class CodeWriter {
 
-    public String emitPush(String literal) {
-        String assembly = "@17\n";
-        if (literal.equals("push")) {
-            assembly += "D=A\n";
-        }
+    FileWriter fileWriter;
 
-        return assembly;
+    public CodeWriter(String filename) throws IOException {
+        fileWriter = new FileWriter(filename);
+    }
+
+    public void writeArithmetic(String command) throws IOException {
+        fileWriter.write(command);
+    }
+
+    public void writePushPop(String command, String segment, int index) throws IOException {
+        fileWriter.write(command);
+    }
+
+    public void close() throws IOException {
+        fileWriter.close();
+        System.out.println("Wrote to file.");
     }
 }
