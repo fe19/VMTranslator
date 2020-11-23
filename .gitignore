@@ -2,5 +2,5 @@
 
 /src
 
-/SimpleAdd.vm.asm
-/SimpleAdd_Manually.asm
+/SimpleAdd.asm
+/StackTest.asm
