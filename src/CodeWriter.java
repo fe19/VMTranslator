@@ -15,7 +15,7 @@ public class CodeWriter {
     public void writePushPop(String command, String segment, int index) throws IOException {
         // Add comment first to indicate VM commad that is followed by HACK assembly
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
-        // Write assembly code for push command
+        // Assembly for push command
         if (command.equals("push")) {
             if (segment.equals("constant")) {
                 fileWriter.write("@" + index+ "\n");
@@ -32,6 +32,27 @@ public class CodeWriter {
     public void writeArithmetic(String command) throws IOException {
         // Add comment first to indicate VM commad that is followed by HACK assembly
         fileWriter.write("// " + command + "\n");
+        // Assembly
+        switch (command){
+            case "add":
+                fileWriter.write("@SP\n");
+                fileWriter.write("M=M-1\n");
+                fileWriter.write("A=M\n");
+                fileWriter.write("D=M\n");
+                fileWriter.write("@SP\n");
+                fileWriter.write("M=M-1\n");
+                fileWriter.write("A=M\n");
+                fileWriter.write("D=D+M\n");
+                fileWriter.write("M=D\n");
+                fileWriter.write("@SP\n");
+                fileWriter.write("M=M+1\n");
+                break;
+            case "sub":
+                fileWriter.write("@SP\n");
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
+        }
     }
 
     public void close() throws IOException {
