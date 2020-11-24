@@ -12,8 +12,6 @@ public class CodeWriter {
     int countEQ = 0;
     int countGT = 0;
     int countLT = 0;
-    int countAnd = 0;
-    int countOr = 0;
 
     public CodeWriter(String filename) throws IOException {
         fileWriter = new FileWriter(filename);
@@ -418,31 +416,17 @@ public class CodeWriter {
                 fileWriter.write("   M=M+1\n");
                 break;
             case "or":
-                String labelOr = "AND" + countOr;
-                String labelOrEnd = "OREND" + countOr;
-                countOr++;
+                fileWriter.write("   // SP--\n");
+                fileWriter.write("   @SP\n");
+                fileWriter.write("   M=M-1\n");
+                fileWriter.write("   // *SP = X | Y\n");
+                fileWriter.write("   A=M\n");
+                fileWriter.write("   D=M\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M-1\n");
                 fileWriter.write("   A=M\n");
-                fileWriter.write("   D=M\n");
-                fileWriter.write("   @" + labelOr + "\n");
-                fileWriter.write("   D;JGT\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   M=M-1\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   D=M\n");
-                fileWriter.write("   @" + labelOr + "\n");
-                fileWriter.write("   D;JGT\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=0\n");
-                fileWriter.write("   @" + labelOrEnd + "\n");
-                fileWriter.write("   0;JMP\n");
-                fileWriter.write("(" + labelOr + ")\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=-1\n");
-                fileWriter.write("(" + labelOrEnd + ")\n");
+                fileWriter.write("   M=D|M\n");
+                fileWriter.write("   // SP++\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M+1\n");
                 break;
