@@ -18,7 +18,7 @@ public class CodeWriter {
     }
 
     public void writePushPop(String command, String segment, int index, String fileName) throws IOException {
-        // Add comment first to indicate VM commad that is followed by HACK assembly
+        // Add comment first to indicate VM command that is followed by HACK assembly
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
         // Assembly for push command
         if (command.equals("push")) {
@@ -271,7 +271,7 @@ public class CodeWriter {
     }
 
     public void writeArithmetic(String command) throws IOException {
-        // Add comment first to indicate VM commad that is followed by HACK assembly
+        // Add comment first to indicate VM command that is followed by HACK assembly
         fileWriter.write("// " + command + "\n");
         // Assembly
         switch (command) {
