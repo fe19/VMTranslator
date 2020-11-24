@@ -241,7 +241,7 @@ public class CodeWriter {
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M-1\n");
                 fileWriter.write("   A=M\n");
-                fileWriter.write("   D=D-M\n");
+                fileWriter.write("   D=M-D\n");
                 fileWriter.write("   M=D\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M+1\n");
