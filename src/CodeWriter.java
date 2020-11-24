@@ -27,17 +27,20 @@ public class CodeWriter {
         if (command.equals("push")) {
             switch (segment) {
                 case "constant":
+                    fileWriter.write("   // *SP = i\n");
                     fileWriter.write("   @" + index + "\n");
                     fileWriter.write("   D=A\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
                 case "local":
+                    fileWriter.write("   // *SP = *(LCL + i)\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @LCL\n");
                     fileWriter.write("   D=D+M\n");
                     fileWriter.write("   A=D\n");
@@ -45,12 +48,14 @@ public class CodeWriter {
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
                 case "argument":
+                    fileWriter.write("   // *SP = *(ARG + i)\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @ARG\n");
                     fileWriter.write("   D=D+M\n");
                     fileWriter.write("   A=D\n");
@@ -58,12 +63,14 @@ public class CodeWriter {
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
                 case "this":
+                    fileWriter.write("   // *SP = *(THIS + i)\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @THIS\n");
                     fileWriter.write("   D=D+M\n");
                     fileWriter.write("   A=D\n");
@@ -71,12 +78,14 @@ public class CodeWriter {
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
                 case "that":
+                    fileWriter.write("   // *SP = *(THAT + i)\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @THAT\n");
                     fileWriter.write("   D=D+M\n");
                     fileWriter.write("   A=D\n");
@@ -84,19 +93,22 @@ public class CodeWriter {
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
                 case "temp":
+                    fileWriter.write("   // *SP = *(5 + i)\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @5\n");
-                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   D=D+A\n");
                     fileWriter.write("   A=D\n");
                     fileWriter.write("   D=M\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
@@ -184,7 +196,7 @@ public class CodeWriter {
                     fileWriter.write("   @" + index + "\n");
                     fileWriter.write("   D=A\n");
                     fileWriter.write("   @5\n");
-                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   D=D+A\n");
                     fileWriter.write("   @" + labelAddr + "\n");
                     fileWriter.write("   M=D\n");
                     fileWriter.write("   // SP--\n");
