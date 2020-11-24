@@ -123,6 +123,23 @@ public class CodeWriter {
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M+1\n");
                     break;
+                case "pointer":
+                    if (index == 0) {
+                        fileWriter.write("   // *SP = THIS\n");
+                        fileWriter.write("   @THIS\n");
+                        fileWriter.write("   D=M\n");
+                    } else {
+                        fileWriter.write("   // *SP = THAT\n");
+                        fileWriter.write("   @THAT\n");
+                        fileWriter.write("   D=M\n");
+                    }
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + segment);
             }
@@ -229,6 +246,26 @@ public class CodeWriter {
                     fileWriter.write("   D=M\n");
                     fileWriter.write("   @" + fileName + "." + index + "\n");
                     fileWriter.write("   M=D\n");
+                    break;
+                case "pointer":
+                    fileWriter.write("   // SP--\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // D = *SP\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   D=M\n");
+                    if (index == 0) {
+                        fileWriter.write("   // THIS = *SP\n");
+                        fileWriter.write("   @THIS\n");
+                        fileWriter.write("   M=D\n");
+                    } else {
+                        fileWriter.write("   // THAT = *SP\n");
+                        fileWriter.write("   @THAT\n");
+                        fileWriter.write("   M=D\n");
+                    }
+
+
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + segment);
