@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Parser parser = new Parser("PointerTest");
+        Parser parser = new Parser("StackTest");
         parser.advance();
     }
 }
