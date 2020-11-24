@@ -4,4 +4,4 @@
 
 /*.asm
 
-*.class
+/out/production/VMTranslator/*.class

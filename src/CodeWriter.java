@@ -20,7 +20,7 @@ public class CodeWriter {
         fileWriter = new FileWriter(filename);
     }
 
-    public void writePushPop(String command, String segment, int index) throws IOException {
+    public void writePushPop(String command, String segment, int index, String fileName) throws IOException {
         // Add comment first to indicate VM commad that is followed by HACK assembly
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
         // Assembly for push command
@@ -104,6 +104,17 @@ public class CodeWriter {
                     fileWriter.write("   @5\n");
                     fileWriter.write("   D=D+A\n");
                     fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP++\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "static":
+                    fileWriter.write("   // *SP = *filename.i\n");
+                    fileWriter.write("   @" + fileName + "." + index + "\n");
                     fileWriter.write("   D=M\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
@@ -207,6 +218,16 @@ public class CodeWriter {
                     fileWriter.write("   D=M\n");
                     fileWriter.write("   @" + labelAddr + "\n");
                     fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                case "static":
+                    fileWriter.write("   // SP--\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *filename.i = *SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + fileName + "." + index + "\n");
                     fileWriter.write("   M=D\n");
                     break;
                 default:
