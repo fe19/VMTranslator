@@ -8,6 +8,7 @@ public class CodeWriter {
 
     FileWriter fileWriter;
 
+    int countAddr = 0;
     int countEQ = 0;
     int countGT = 0;
     int countLT = 0;
@@ -103,65 +104,97 @@ public class CodeWriter {
                     throw new IllegalStateException("Unexpected value: " + segment);
             }
         } else {
+            String labelAddr = "addr" + countAddr;
+            countAddr++;
             switch (segment) {
                 case "local":
+                    fileWriter.write("   // addr = LCL + i\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @LCL\n");
                     fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP--\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *addr = *SP\n");
                     fileWriter.write("   A=M\n");
-                    fileWriter.write("   AM=M\n");
-                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
                     break;
                 case "argument":
+                    fileWriter.write("   // addr = ARG + i\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @ARG\n");
                     fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP--\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *addr = *SP\n");
                     fileWriter.write("   A=M\n");
-                    fileWriter.write("   AM=M\n");
-                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
                     break;
                 case "this":
+                    fileWriter.write("   // addr = THIS + i\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @THIS\n");
                     fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP--\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *addr = *SP\n");
                     fileWriter.write("   A=M\n");
-                    fileWriter.write("   AM=M\n");
-                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
                     break;
                 case "that":
+                    fileWriter.write("   // addr = THAT + i\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @THAT\n");
                     fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP--\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *addr = *SP\n");
                     fileWriter.write("   A=M\n");
-                    fileWriter.write("   AM=M\n");
-                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
                     break;
                 case "temp":
+                    fileWriter.write("   // addr = 5 + i\n");
                     fileWriter.write("   @" + index + "\n");
-                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   D=A\n");
                     fileWriter.write("   @5\n");
                     fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   // SP--\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   // *addr = *SP\n");
                     fileWriter.write("   A=M\n");
-                    fileWriter.write("   AM=M\n");
-                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @" + labelAddr + "\n");
+                    fileWriter.write("   A=M\n");
                     fileWriter.write("   M=D\n");
                     break;
                 default:
