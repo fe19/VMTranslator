@@ -302,13 +302,15 @@ public class CodeWriter {
                 fileWriter.write("   M=M+1\n");
                 break;
             case "neg":
+                fileWriter.write("   // SP--\n");
                 fileWriter.write("   @SP\n");
+                fileWriter.write("   M=M-1\n");
+                fileWriter.write("   // *SP = -*SP\n");
                 fileWriter.write("   A=M\n");
-                fileWriter.write("   D=M\n");
-                fileWriter.write("   D=-D\n");
+                fileWriter.write("   M=-M\n");
+                fileWriter.write("   // SP++\n");
                 fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=D\n");
+                fileWriter.write("   M=M+1\n");
                 break;
             case "eq":
                 String labelEQ = "EQ" + countEQ;
