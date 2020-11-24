@@ -24,14 +24,148 @@ public class CodeWriter {
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
         // Assembly for push command
         if (command.equals("push")) {
-            if (segment.equals("constant")) {
-                fileWriter.write("   @" + index + "\n");
-                fileWriter.write("   D=A\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=D\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   M=M+1\n");
+            switch (segment) {
+                case "constant":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=A\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "local":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @LCL\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "argument":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @ARG\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "this":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @THIS\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "that":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @THAT\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                case "temp":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @5\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   M=D\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M+1\n");
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + segment);
+            }
+        } else {
+            switch (segment) {
+                case "local":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @LCL\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   AM=M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                case "argument":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @ARG\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   AM=M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                case "this":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @THIS\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   AM=M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                case "that":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @THAT\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   AM=M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                case "temp":
+                    fileWriter.write("   @" + index + "\n");
+                    fileWriter.write("   D=M\n");
+                    fileWriter.write("   @5\n");
+                    fileWriter.write("   D=D+M\n");
+                    fileWriter.write("   @SP\n");
+                    fileWriter.write("   M=M-1\n");
+                    fileWriter.write("   A=M\n");
+                    fileWriter.write("   AM=M\n");
+                    fileWriter.write("   A=D\n");
+                    fileWriter.write("   M=D\n");
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + segment);
             }
         }
     }
