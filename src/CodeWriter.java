@@ -276,8 +276,10 @@ public class CodeWriter {
         // Assembly
         switch (command) {
             case "add":
+                fileWriter.write("   // SP--\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M-1\n");
+                fileWriter.write("   // SP = X + Y\n");
                 fileWriter.write("   A=M\n");
                 fileWriter.write("   D=M\n");
                 fileWriter.write("   @SP\n");
@@ -285,12 +287,15 @@ public class CodeWriter {
                 fileWriter.write("   A=M\n");
                 fileWriter.write("   D=D+M\n");
                 fileWriter.write("   M=D\n");
+                fileWriter.write("   // SP++\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M+1\n");
                 break;
             case "sub":
+                fileWriter.write("   // SP--\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M-1\n");
+                fileWriter.write("   // *SP = X - Y\n");
                 fileWriter.write("   A=M\n");
                 fileWriter.write("   D=M\n");
                 fileWriter.write("   @SP\n");
@@ -298,6 +303,7 @@ public class CodeWriter {
                 fileWriter.write("   A=M\n");
                 fileWriter.write("   D=M-D\n");
                 fileWriter.write("   M=D\n");
+                fileWriter.write("   // SP++\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M+1\n");
                 break;
