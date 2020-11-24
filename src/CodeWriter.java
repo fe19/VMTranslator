@@ -14,7 +14,6 @@ public class CodeWriter {
     int countLT = 0;
     int countAnd = 0;
     int countOr = 0;
-    int countNot = 0;
 
     public CodeWriter(String filename) throws IOException {
         fileWriter = new FileWriter(filename);
@@ -462,25 +461,13 @@ public class CodeWriter {
                 fileWriter.write("   M=M+1\n");
                 break;
             case "not":
-                String labelNot = "NOT" + countNot;
-                String labelNotEnd = "NOTEND" + countNot;
-                countNot++;
+                fileWriter.write("   // SP--\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M-1\n");
+                fileWriter.write("   // *SP = !*SP\n");
                 fileWriter.write("   A=M\n");
-                fileWriter.write("   D=M\n");
-                fileWriter.write("   @" + labelNot + "\n");
-                fileWriter.write("   D;JEQ\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=0\n");
-                fileWriter.write("   @" + labelNotEnd + "\n");
-                fileWriter.write("   0;JMP\n");
-                fileWriter.write("(" + labelNot + ")\n");
-                fileWriter.write("   @SP\n");
-                fileWriter.write("   A=M\n");
-                fileWriter.write("   M=-1\n");
-                fileWriter.write("(" + labelNotEnd + ")\n");
+                fileWriter.write("   M=!M\n");
+                fileWriter.write("   // SP++\n");
                 fileWriter.write("   @SP\n");
                 fileWriter.write("   M=M+1\n");
                 break;
