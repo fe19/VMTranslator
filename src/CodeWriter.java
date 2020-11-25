@@ -454,6 +454,38 @@ public class CodeWriter {
         }
     }
 
+    public void setFileName(String fileName){
+        // TODO
+    }
+
+    public void writeInit(){
+        // TODO
+    }
+
+    public void writeLabel(String label){
+        // TODO
+    }
+
+    public void writeGoto(String label){
+        // TODO
+    }
+
+    public void writeIf(String label){
+        // TODO
+    }
+
+    public void writeFunction(String functionName, int numVars){
+        // TODO
+    }
+
+    public void writeCall(String functionName, int numVars){
+        // TODO
+    }
+
+    public void writeReturn(){
+        // TODO
+    }
+
     public void close() throws IOException {
         fileWriter.close();
         System.out.println("Wrote to file.");

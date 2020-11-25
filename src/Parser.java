@@ -54,13 +54,13 @@ public class Parser {
                         codeWriter.writeArithmetic(currentCommand);
                         break;
                     case C_LABEL:
-                        // Project 8: implement label
+                        codeWriter.writeLabel(commands[1]);
                         break;
                     case C_GOTO:
-                        // Project 8: implement goto
+                        codeWriter.writeGoto(commands[1]);
                         break;
                     case C_IF:
-                        // Project 8: implement if
+                        codeWriter.writeIf(commands[1]);
                         break;
                     case C_FUNCTION:
                         // Project 8: implement function
