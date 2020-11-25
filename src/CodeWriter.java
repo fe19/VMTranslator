@@ -7,6 +7,7 @@ import java.io.IOException;
 public class CodeWriter {
 
     FileWriter fileWriter;
+    String fileName;
 
     int countAddr = 0;
     int countEQ = 0;
@@ -15,9 +16,10 @@ public class CodeWriter {
 
     public CodeWriter(String filename) throws IOException {
         fileWriter = new FileWriter(filename);
+        this.fileName = filename;
     }
 
-    public void writePushPop(String command, String segment, int index, String fileName) throws IOException {
+    public void writePushPop(String command, String segment, int index) throws IOException {
         // Add comment first to indicate VM command that is followed by HACK assembly
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
         // Assembly for push command
@@ -454,35 +456,46 @@ public class CodeWriter {
         }
     }
 
-    public void setFileName(String fileName){
+    public void writeInit() throws IOException {
+        fileWriter.write("// init\n");
+        fileWriter.write("   @256\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=D\n");
+        //TODO call Sys.init
+    }
+
+    public void writeLabel(String label) throws IOException {
+        fileWriter.write("// label " + label + "\n");
+        fileWriter.write("(" + label + ")\n");
+    }
+
+    public void writeGoto(String label) throws IOException {
+        fileWriter.write("// goto " + label + "\n");
+        fileWriter.write("   @" + label + "\n");
+        fileWriter.write("   0;JMP" + label + "\n");
+    }
+
+    public void writeIf(String label) throws IOException {
+        fileWriter.write("// goto-if " + label + "\n");
+        fileWriter.write("   // SP--\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   // if (x > y) goto LABEL\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   @" + label + "\n");
+        fileWriter.write("   M;JNE\n");
+    }
+
+    public void writeFunction(String functionName, int numVars) throws IOException {
         // TODO
     }
 
-    public void writeInit(){
+    public void writeCall(String functionName, int numVars) throws IOException {
         // TODO
     }
 
-    public void writeLabel(String label){
-        // TODO
-    }
-
-    public void writeGoto(String label){
-        // TODO
-    }
-
-    public void writeIf(String label){
-        // TODO
-    }
-
-    public void writeFunction(String functionName, int numVars){
-        // TODO
-    }
-
-    public void writeCall(String functionName, int numVars){
-        // TODO
-    }
-
-    public void writeReturn(){
+    public void writeReturn() throws IOException {
         // TODO
     }
 

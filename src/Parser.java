@@ -27,6 +27,7 @@ public class Parser {
         this.fileName = filename;
         fileReader = new FileReader(filename + ".vm");
         codeWriter = new CodeWriter(filename + ".asm");
+        codeWriter.writeInit();
         scanner = new Scanner(fileReader);
     }
 
@@ -48,7 +49,7 @@ public class Parser {
                 switch (commandType()) {
                     case C_PUSH:
                     case C_POP:
-                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2]), fileName);
+                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2]));
                         break;
                     case C_ARITHMETIC:
                         codeWriter.writeArithmetic(currentCommand);
