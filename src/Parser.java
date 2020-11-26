@@ -41,15 +41,19 @@ public class Parser {
     public void advance() throws IOException {
         while (hasMoreCommands()) {
             String line = scanner.nextLine();
-            // ignore spaces and comments
-            if (!line.isEmpty() && !line.contains("//")) {
+            // remove comments
+            if (line.contains("//")) {
+                line = line.split("//")[0];   // take only part before comment
+            }
+            // ignore spaces
+            if (!line.isEmpty()) {
                 currentCommand = line;
                 System.out.println("VM command = " + currentCommand);
                 String[] commands = currentCommand.split(" ");
                 switch (commandType()) {
                     case C_PUSH:
                     case C_POP:
-                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2]));
+                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2].trim()));
                         break;
                     case C_ARITHMETIC:
                         codeWriter.writeArithmetic(currentCommand);
@@ -86,7 +90,7 @@ public class Parser {
             return C_LABEL;
         } else if (currentCommand.contains("goto")) {
             return C_GOTO;
-        } else if (currentCommand.contains("if")) {
+        } else if (currentCommand.contains("goto-if")) {
             return C_IF;
         } else if (currentCommand.contains("function")) {
             return C_FUNCTION;

@@ -473,7 +473,7 @@ public class CodeWriter {
     public void writeGoto(String label) throws IOException {
         fileWriter.write("// goto " + label + "\n");
         fileWriter.write("   @" + label + "\n");
-        fileWriter.write("   0;JMP" + label + "\n");
+        fileWriter.write("   0;JMP" + "\n");
     }
 
     public void writeIf(String label) throws IOException {
@@ -484,7 +484,7 @@ public class CodeWriter {
         fileWriter.write("   // if (x > y) goto LABEL\n");
         fileWriter.write("   A=M\n");
         fileWriter.write("   @" + label + "\n");
-        fileWriter.write("   M;JNE\n");
+        fileWriter.write("   M;JGT\n");
     }
 
     public void writeFunction(String functionName, int numVars) throws IOException {
