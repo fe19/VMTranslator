@@ -8,15 +8,6 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    private final String C_PUSH = "C_PUSH";
-    private final String C_POP = "C_POP";
-    private final String C_ARITHMETIC = "C_ARITHMETIC";
-    private final String C_LABEL = "C_LABEL";
-    private final String C_GOTO = "C_GOTO";
-    private final String C_IF = "C_IF";
-    private final String C_FUNCTION = "C_FUNCTION";
-    private final String C_RETURN = "C_RETURN";
-
     String fileName;
     FileReader fileReader;
     CodeWriter codeWriter;
@@ -50,55 +41,46 @@ public class Parser {
                 currentCommand = line;
                 System.out.println("VM command = " + currentCommand);
                 String[] commands = currentCommand.split(" ");
-                switch (commandType()) {
-                    case C_PUSH:
-                    case C_POP:
+                switch (commands[0]) {
+                    case "push":
+                    case "pop":
                         codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2].trim()));
                         break;
-                    case C_ARITHMETIC:
+                    case "add":
+                    case "sub":
+                    case "neg":
+                    case "eq":
+                    case "gt":
+                    case "lt":
+                    case "and":
+                    case "or":
+                    case "not":
                         codeWriter.writeArithmetic(currentCommand);
                         break;
-                    case C_LABEL:
+                    case "label":
                         codeWriter.writeLabel(commands[1]);
                         break;
-                    case C_GOTO:
+                    case "goto":
                         codeWriter.writeGoto(commands[1]);
                         break;
-                    case C_IF:
+                    case "goto-if":
                         codeWriter.writeIf(commands[1]);
                         break;
-                    case C_FUNCTION:
+                    case "function":
                         // Project 8: implement function
                         break;
-                    case C_RETURN:
+                    case "call":
                         // Project 8: implement return
                         break;
+                    case "return":
+                        codeWriter.writeReturn();
+                        break;
                     default:
-                        throw new IllegalStateException("Unexpected value: " + commandType());
+                        throw new IllegalStateException("Unexpected VM command: " + commands[0]);
                 }
             }
         }
         codeWriter.close();
-    }
-
-    public String commandType() {
-        if (currentCommand.contains("push")) {
-            return C_PUSH;
-        } else if (currentCommand.contains("pop")) {
-            return C_POP;
-        } else if (currentCommand.contains("label")) {
-            return C_LABEL;
-        } else if (currentCommand.contains("goto")) {
-            return C_GOTO;
-        } else if (currentCommand.contains("goto-if")) {
-            return C_IF;
-        } else if (currentCommand.contains("function")) {
-            return C_FUNCTION;
-        } else if (currentCommand.contains("return")) {
-            return C_RETURN;
-        } else {
-            return C_ARITHMETIC;
-        }
     }
 
 }
