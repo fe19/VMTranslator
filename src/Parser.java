@@ -63,7 +63,7 @@ public class Parser {
                     case "goto":
                         codeWriter.writeGoto(commands[1]);
                         break;
-                    case "goto-if":
+                    case "if-goto":
                         codeWriter.writeIf(commands[1]);
                         break;
                     case "function":

@@ -483,8 +483,9 @@ public class CodeWriter {
         fileWriter.write("   M=M-1\n");
         fileWriter.write("   // if (x > y) goto LABEL\n");
         fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
         fileWriter.write("   @" + label + "\n");
-        fileWriter.write("   M;JGT\n");
+        fileWriter.write("   D;JGT\n");
     }
 
     public void writeFunction(String functionName, int numVars) throws IOException {
