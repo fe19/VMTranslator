@@ -67,10 +67,10 @@ public class Parser {
                         codeWriter.writeIf(commands[1]);
                         break;
                     case "function":
-                        // Project 8: implement function
+                        codeWriter.writeFunction(commands[1], Integer.parseInt(commands[2].trim()));
                         break;
                     case "call":
-                        // Project 8: implement return
+                        codeWriter.writeCall(commands[1], Integer.parseInt(commands[2].trim()));
                         break;
                     case "return":
                         codeWriter.writeReturn();

@@ -489,15 +489,24 @@ public class CodeWriter {
     }
 
     public void writeFunction(String functionName, int numVars) throws IOException {
-        // TODO
+        fileWriter.write("// function " + functionName + " " + numVars + "\n");
+        // Set #numVars to zero
+        for (int i = 0; i < numVars; i++) {
+            fileWriter.write("   @" + i + "\n");
+            fileWriter.write("   D=A\n");
+            fileWriter.write("   @LCL\n");
+            fileWriter.write("   D=D+M\n");
+            fileWriter.write("   A=D\n");
+            fileWriter.write("   M=0\n");
+        }
     }
 
     public void writeCall(String functionName, int numVars) throws IOException {
-        // TODO
+        fileWriter.write("// call " + functionName + " " + numVars + "\n");
     }
 
     public void writeReturn() throws IOException {
-        // TODO
+        fileWriter.write("// return\n");
     }
 
     public void close() throws IOException {
