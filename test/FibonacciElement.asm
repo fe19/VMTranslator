@@ -1,4 +1,15 @@
+// init
+   // Set SP
+   @256
+   D=A
+   @SP
+   M=D
+   // Call Sys.init
+   @Sys.init
+   0;JMP
 // function Main.fibonacci 0
+// label Main.fibonacci
+(Main.fibonacci)
    // Set #numVars to zero and increment SP
 // push argument 0
    // *SP = *(ARG + i)
@@ -298,6 +309,8 @@
    A=D
    D;JMP
 // function Sys.init 0
+// label Sys.init
+(Sys.init)
    // Set #numVars to zero and increment SP
 // push constant 4
    // *SP = i
