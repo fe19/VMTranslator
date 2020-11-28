@@ -18,7 +18,7 @@ public class Parser {
         this.fileName = filename;
         fileReader = new FileReader(filename + ".vm");
         codeWriter = new CodeWriter(filename + ".asm");
-        codeWriter.writeInit();
+        // codeWriter.writeInit();
         scanner = new Scanner(fileReader);
     }
 

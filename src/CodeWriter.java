@@ -490,7 +490,7 @@ public class CodeWriter {
 
     public void writeFunction(String functionName, int numVars) throws IOException {
         fileWriter.write("// function " + functionName + " " + numVars + "\n");
-        // Set #numVars to zero
+        fileWriter.write("   // Set #numVars to zero and increment SP\n");
         for (int i = 0; i < numVars; i++) {
             fileWriter.write("   @" + i + "\n");
             fileWriter.write("   D=A\n");
@@ -498,6 +498,8 @@ public class CodeWriter {
             fileWriter.write("   D=D+M\n");
             fileWriter.write("   A=D\n");
             fileWriter.write("   M=0\n");
+            fileWriter.write("   @SP\n");
+            fileWriter.write("   M=M+1\n");
         }
     }
 
@@ -507,6 +509,70 @@ public class CodeWriter {
 
     public void writeReturn() throws IOException {
         fileWriter.write("// return\n");
+        fileWriter.write("   // 1) Copy return value to argument 0\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   // 3/4) Clear stack (i.e., set SP after argument 0)\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   D=M+1\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   // 2) Restore caller's frame\n");
+        fileWriter.write("   // Store return address first before we reset LCL in caller's frame\n");
+        fileWriter.write("   @5\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @returnAddress\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   @1\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @THAT\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @2\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @THIS\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @3\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @4\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   // 5) Jump to the return address in callers frame\n");
+        fileWriter.write("   @returnAddress\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D;JMP\n");
     }
 
     public void close() throws IOException {
