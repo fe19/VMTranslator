@@ -5,21 +5,23 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String pathName = "test/FibonacciElement";
-        File filePath = new File(pathName);
+        String pathName = "test/";
+        String fileName = "StaticTest";
 
-        if (filePath.isDirectory()) {
-            Parser parser = new Parser(pathName + ".asm");
-            File[] files = filePath.listFiles();
+        File file = new File(pathName + fileName);
+
+        if (file.isDirectory()) {
+            Parser parser = new Parser(pathName, fileName, ".asm");
+            File[] files = file.listFiles();
             assert files != null;
-            for (File file : files) {
-                parser.readFile(pathName + "/" + file.getName());
+            for (File f : files) {
+                parser.readFile(pathName, f.getName());
                 parser.advance();
             }
             parser.closeFile();
         } else {
-            Parser parser = new Parser(pathName + ".asm");
-            parser.readFile(pathName + ".vm");
+            Parser parser = new Parser(pathName, fileName, ".asm");
+            parser.readFile(pathName, fileName + ".vm");
             parser.advance();
             parser.closeFile();
         }

@@ -1,8 +1,3 @@
-// init
-   @256
-   D=A
-   @SP
-   M=D
 // push constant 10
    // *SP = i
    @10

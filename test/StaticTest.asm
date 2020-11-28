@@ -1,8 +1,3 @@
-// init
-   @256
-   D=A
-   @SP
-   M=D
 // push constant 111
    // *SP = i
    @111
@@ -40,7 +35,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticTest.asm.8
+   @StaticTest.8
    M=D
 // pop static 3
    // SP--
@@ -49,7 +44,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticTest.asm.3
+   @StaticTest.3
    M=D
 // pop static 1
    // SP--
@@ -58,11 +53,11 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticTest.asm.1
+   @StaticTest.1
    M=D
 // push static 3
    // *SP = *filename.i
-   @StaticTest.asm.3
+   @StaticTest.3
    D=M
    @SP
    A=M
@@ -72,7 +67,7 @@
    M=M+1
 // push static 1
    // *SP = *filename.i
-   @StaticTest.asm.1
+   @StaticTest.1
    D=M
    @SP
    A=M
@@ -97,7 +92,7 @@
    M=M+1
 // push static 8
    // *SP = *filename.i
-   @StaticTest.asm.8
+   @StaticTest.8
    D=M
    @SP
    A=M

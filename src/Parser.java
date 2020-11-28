@@ -14,13 +14,13 @@ public class Parser {
     Scanner scanner;
     String currentCommand;
 
-    public Parser(String outputFileName) throws IOException {
-        codeWriter = new CodeWriter(outputFileName);
+    public Parser(String outputPath, String outputFile, String outputEnd) throws IOException {
+        codeWriter = new CodeWriter(outputPath, outputFile, outputEnd);
         // codeWriter.writeInit();
     }
 
-    public void readFile(String fileName) throws FileNotFoundException {
-        fileReader = new FileReader(fileName);
+    public void readFile(String path, String fileEnd) throws FileNotFoundException {
+        fileReader = new FileReader(path + fileEnd);
         scanner = new Scanner(fileReader);
     }
 

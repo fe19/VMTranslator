@@ -14,9 +14,9 @@ public class CodeWriter {
     int countGT = 0;
     int countLT = 0;
 
-    public CodeWriter(String filename) throws IOException {
-        fileWriter = new FileWriter(filename);
-        this.fileName = filename;
+    public CodeWriter(String path, String file, String end) throws IOException {
+        fileWriter = new FileWriter(path + file + end);
+        this.fileName = file;
     }
 
     public void writePushPop(String command, String segment, int index) throws IOException {
