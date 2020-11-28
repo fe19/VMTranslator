@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,18 +9,23 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    String fileName;
     FileReader fileReader;
     CodeWriter codeWriter;
     Scanner scanner;
     String currentCommand;
 
-    public Parser(String filename) throws IOException {
-        this.fileName = filename;
-        fileReader = new FileReader(filename + ".vm");
-        codeWriter = new CodeWriter(filename + ".asm");
+    public Parser(String outputFileName) throws IOException {
+        codeWriter = new CodeWriter(outputFileName);
         // codeWriter.writeInit();
+    }
+
+    public void readFile(String fileName) throws FileNotFoundException {
+        fileReader = new FileReader(fileName);
         scanner = new Scanner(fileReader);
+    }
+
+    public void closeFile() throws IOException {
+        codeWriter.close();
     }
 
     public boolean hasMoreCommands() {
@@ -55,7 +61,7 @@ public class Parser {
                     case "and":
                     case "or":
                     case "not":
-                        codeWriter.writeArithmetic(currentCommand);
+                        codeWriter.writeArithmetic(currentCommand.trim());
                         break;
                     case "label":
                         codeWriter.writeLabel(commands[1]);
@@ -80,7 +86,6 @@ public class Parser {
                 }
             }
         }
-        codeWriter.close();
     }
 
 }
