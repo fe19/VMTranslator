@@ -16,7 +16,7 @@ public class Parser {
 
     public Parser(String outputPath, String outputFile, String outputEnd) throws IOException {
         codeWriter = new CodeWriter(outputPath, outputFile, outputEnd);
-        // codeWriter.writeInit();
+        codeWriter.writeInit();
     }
 
     public void readFile(String path, String fileEnd) throws FileNotFoundException {

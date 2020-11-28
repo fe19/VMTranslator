@@ -1,3 +1,12 @@
+// init
+   // Set SP
+   @256
+   D=A
+   @SP
+   M=D
+   // Call Sys.init
+   @Sys.init
+   0;JMP
 // push argument 1
    // *SP = *(ARG + i)
    @1

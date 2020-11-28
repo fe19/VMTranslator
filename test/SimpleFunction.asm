@@ -1,3 +1,12 @@
+// init
+   // Set SP
+   @256
+   D=A
+   @SP
+   M=D
+   // Call Sys.init
+   @Sys.init
+   0;JMP
 // function SimpleFunction.test 2
    // Set #numVars to zero and increment SP
    @0

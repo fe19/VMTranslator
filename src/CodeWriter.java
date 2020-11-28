@@ -458,11 +458,14 @@ public class CodeWriter {
 
     public void writeInit() throws IOException {
         fileWriter.write("// init\n");
+        fileWriter.write("   // Set SP\n");
         fileWriter.write("   @256\n");
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=D\n");
-        //TODO call Sys.init
+        fileWriter.write("   // Call Sys.init\n");
+        fileWriter.write("   @Sys.init\n");
+        fileWriter.write("   0;JMP\n");
     }
 
     public void writeLabel(String label) throws IOException {
