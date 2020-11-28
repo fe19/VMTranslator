@@ -1,8 +1,3 @@
-// init
-   @256
-   D=A
-   @SP
-   M=D
 // push argument 1
    // *SP = *(ARG + i)
    @1

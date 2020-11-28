@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String pathName = "test/";
-        String fileName = "StaticTest";
+        String fileName = "SimpleFunction";
 
         File file = new File(pathName + fileName);
 
