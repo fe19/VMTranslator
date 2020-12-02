@@ -4,9 +4,6 @@
    D=A
    @SP
    M=D
-   // Call Sys.init
-   @Sys.init
-   0;JMP
 // function SimpleFunction.test 2
 // label SimpleFunction.test
 (SimpleFunction.test)
@@ -38,7 +35,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push local 1
@@ -52,14 +48,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -67,17 +60,14 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // not
-   // SP--
    @SP
    M=M-1
    // *SP = !*SP
    A=M
    M=!M
-   // SP++
    @SP
    M=M+1
 // push argument 0
@@ -91,14 +81,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -106,7 +93,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // push argument 1
@@ -120,11 +106,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -135,7 +119,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // return

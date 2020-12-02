@@ -73,7 +73,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 2
@@ -83,16 +82,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // lt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -109,11 +105,9 @@
    A=M
    M=-1
 (LTEND0)
-   // SP++
    @SP
    M=M+1
 // goto-if IF_TRUE
-   // SP--
    @SP
    M=M-1
    // if (x > y) goto LABEL
@@ -137,71 +131,63 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // return
    // 1) Copy return value to argument 0
    @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
    M=M-1
    A=M
    D=M
    @ARG
    A=M
-   M=D
-   // 2) Restore caller's frame
-   // 2.1) Restore THAT
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @THAT
-   M=D
-   // 2.2) Restore THIS
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @THIS
-   M=D
-   // 2.3) Restore ARG
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @ARG
-   M=D
-   // 2.4) Restore LCL
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @LCL
-   M=D
-   // 2.5) Restore return address
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @returnAddress
    M=D
    // 3/4) Clear stack (i.e., set SP after argument 0)
    @ARG
    D=M+1
    @SP
+   M=D
+   // 2) Restore caller's frame
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress
+   M=D
+   @1
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @THAT
+   M=D
+   @2
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @THIS
+   M=D
+   @3
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @ARG
+   M=D
+   @4
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @LCL
    M=D
    // 5) Jump to the return address in callers frame
    @returnAddress
@@ -221,7 +207,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 2
@@ -231,11 +216,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -246,7 +229,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // call Main.fibonacci 1
@@ -314,7 +296,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 1
@@ -324,11 +305,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -339,7 +318,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // call Main.fibonacci 1
@@ -397,35 +375,8 @@
 // label Main.fibonacciReturnAddress2
 (Main.fibonacciReturnAddress2)
 // add
-   // SP--
    @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-   @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
-      @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -433,7 +384,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // return
@@ -445,46 +395,52 @@
    @ARG
    A=M
    M=D
-   // 2) Restore caller's frame
-   // 2.1) Restore THAT
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @THAT
-   M=D
-   // 2.2) Restore THIS
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @THIS
-   M=D
-   // 2.3) Restore ARG
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @ARG
-   M=D
-   // 2.4) Restore LCL
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @LCL
-   M=D
-   // 2.5) Restore return address
-   @SP
-   M=M-1
-   A=M
-   D=M
-   @returnAddress
-   M=D
    // 3/4) Clear stack (i.e., set SP after argument 0)
    @ARG
    D=M+1
    @SP
+   M=D
+   // 2) Restore caller's frame
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress
+   M=D
+   @1
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @THAT
+   M=D
+   @2
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @THIS
+   M=D
+   @3
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @ARG
+   M=D
+   @4
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @LCL
    M=D
    // 5) Jump to the return address in callers frame
    @returnAddress
@@ -502,7 +458,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // call Main.fibonacci 1
