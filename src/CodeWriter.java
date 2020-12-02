@@ -13,6 +13,7 @@ public class CodeWriter {
     int countEQ = 0;
     int countGT = 0;
     int countLT = 0;
+    int countReturnAddress = 0;
 
     public CodeWriter(String path, String file, String end) throws IOException {
         fileWriter = new FileWriter(path + file + end);
@@ -463,9 +464,7 @@ public class CodeWriter {
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=D\n");
-        fileWriter.write("   // Call Sys.init\n");
-        fileWriter.write("   @Sys.init\n");
-        fileWriter.write("   0;JMP\n");
+        this.writeCall("Sys.init", 0);
     }
 
     public void writeLabel(String label) throws IOException {
@@ -488,7 +487,7 @@ public class CodeWriter {
         fileWriter.write("   A=M\n");
         fileWriter.write("   D=M\n");
         fileWriter.write("   @" + label + "\n");
-        fileWriter.write("   D;JGT\n");
+        fileWriter.write("   D;JLT\n");
     }
 
     public void writeFunction(String functionName, int numVars) throws IOException {
@@ -507,12 +506,10 @@ public class CodeWriter {
         }
     }
 
-    public void writeCall(String functionName, int numVars) throws IOException {
-        fileWriter.write("// call " + functionName + " " + numVars + "\n");
-        fileWriter.write("   // 0) Set return address\n");
-
-        fileWriter.write("   // 1) Set ARG = SP - numVars\n");
-        fileWriter.write("   @" + numVars + "\n");
+    public void writeCall(String functionName, int numArgs) throws IOException {
+        fileWriter.write("// call " + functionName + " " + numArgs + "\n");
+        fileWriter.write("   // 1) Set ARG = SP - numArgs\n");
+        fileWriter.write("   @" + numArgs + "\n");
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   D=M-D\n");
@@ -521,7 +518,7 @@ public class CodeWriter {
 
         fileWriter.write("   // 2) Save caller's frame onto stack\n");
         fileWriter.write("   // 2.1) Push caller's return address onto stack\n");
-        fileWriter.write("   @" + functionName + "ReturnAddress\n");
+        fileWriter.write("   @" + functionName + "ReturnAddress" + countReturnAddress + "\n");
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   A=M\n");
@@ -566,7 +563,9 @@ public class CodeWriter {
         fileWriter.write("   @" + functionName + "\n");
         fileWriter.write("   0;JMP\n");
 
-        this.writeLabel(functionName + "ReturnAddress");
+        this.writeLabel(functionName + "ReturnAddress" + countReturnAddress);
+
+        this.countReturnAddress++;
     }
 
     public void writeReturn() throws IOException {
@@ -580,54 +579,47 @@ public class CodeWriter {
         fileWriter.write("   A=M\n");
         fileWriter.write("   M=D\n");
 
-        fileWriter.write("   // 3/4) Clear stack (i.e., set SP after argument 0)\n");
-        fileWriter.write("   @ARG\n");
-        fileWriter.write("   D=M+1\n");
-        fileWriter.write("   @SP\n");
-        fileWriter.write("   M=D\n");
-
         fileWriter.write("   // 2) Restore caller's frame\n");
-        fileWriter.write("   // Store return address first before we reset LCL in caller's frame\n");
-        fileWriter.write("   @5\n");
-        fileWriter.write("   D=A\n");
+        fileWriter.write("   // 2.1) Restore THAT\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @THAT\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   // 2.2) Restore THIS\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @THIS\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   // 2.3) Restore ARG\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   // 2.4) Restore LCL\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   D=M\n");
         fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   // 2.5) Restore return address\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M-1\n");
+        fileWriter.write("   A=M\n");
         fileWriter.write("   D=M\n");
         fileWriter.write("   @returnAddress\n");
         fileWriter.write("   M=D\n");
 
-        fileWriter.write("   @1\n");
-        fileWriter.write("   D=A\n");
-        fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
-        fileWriter.write("   D=M\n");
-        fileWriter.write("   @THAT\n");
-        fileWriter.write("   M=D\n");
-        fileWriter.write("   @2\n");
-        fileWriter.write("   D=A\n");
-        fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
-        fileWriter.write("   D=M\n");
-        fileWriter.write("   @THIS\n");
-        fileWriter.write("   M=D\n");
-        fileWriter.write("   @3\n");
-        fileWriter.write("   D=A\n");
-        fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
-        fileWriter.write("   D=M\n");
+        fileWriter.write("   // 3/4) Clear stack (i.e., set SP after argument 0)\n");
         fileWriter.write("   @ARG\n");
-        fileWriter.write("   M=D\n");
-        fileWriter.write("   @4\n");
-        fileWriter.write("   D=A\n");
-        fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
-        fileWriter.write("   D=M\n");
-        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M+1\n");
+        fileWriter.write("   @SP\n");
         fileWriter.write("   M=D\n");
 
         fileWriter.write("   // 5) Jump to the return address in callers frame\n");
