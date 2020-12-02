@@ -509,6 +509,64 @@ public class CodeWriter {
 
     public void writeCall(String functionName, int numVars) throws IOException {
         fileWriter.write("// call " + functionName + " " + numVars + "\n");
+        fileWriter.write("   // 0) Set return address\n");
+
+        fileWriter.write("   // 1) Set ARG = SP - numVars\n");
+        fileWriter.write("   @" + numVars + "\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   // 2) Save caller's frame onto stack\n");
+        fileWriter.write("   // 2.1) Push caller's return address onto stack\n");
+        fileWriter.write("   @" + functionName + "ReturnAddress\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M+1\n");
+
+        fileWriter.write("   // 2.2) Push caller's LCL onto stack\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M+1\n");
+        fileWriter.write("   // 2.3) Push caller's ARG onto stack\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M+1\n");
+        fileWriter.write("   // 2.4) Push caller's THIS onto stack\n");
+        fileWriter.write("   @THIS\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M+1\n");
+        fileWriter.write("   // 2.5) Push caller's THAT onto stack\n");
+        fileWriter.write("   @THAT\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   A=M\n");
+        fileWriter.write("   M=D\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   M=M+1\n");
+
+        fileWriter.write("   // 3) Jump to callee function\n");
+        fileWriter.write("   @" + functionName + "\n");
+        fileWriter.write("   0;JMP\n");
+
+        this.writeLabel(functionName + "ReturnAddress");
     }
 
     public void writeReturn() throws IOException {

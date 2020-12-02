@@ -8,6 +8,8 @@
    @Sys.init
    0;JMP
 // function SimpleFunction.test 2
+// label SimpleFunction.test
+(SimpleFunction.test)
    // Set #numVars to zero and increment SP
    @0
    D=A

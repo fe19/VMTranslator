@@ -192,6 +192,60 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
+   // 0) Set return address
+   // 1) Set ARG = SP - numVars
+   @1
+   D=A
+   @SP
+   D=M-D
+   @ARG
+   M=D
+   // 2) Save caller's frame onto stack
+   // 2.1) Push caller's return address onto stack
+   @Main.fibonacciReturnAddress
+   D=A
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.2) Push caller's LCL onto stack
+   @LCL
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.3) Push caller's ARG onto stack
+   @ARG
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.4) Push caller's THIS onto stack
+   @THIS
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.5) Push caller's THAT onto stack
+   @THAT
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 3) Jump to callee function
+   @Main.fibonacci
+   0;JMP
+// label Main.fibonacciReturnAddress
+(Main.fibonacciReturnAddress)
 // push argument 0
    // *SP = *(ARG + i)
    @0
@@ -232,6 +286,60 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
+   // 0) Set return address
+   // 1) Set ARG = SP - numVars
+   @1
+   D=A
+   @SP
+   D=M-D
+   @ARG
+   M=D
+   // 2) Save caller's frame onto stack
+   // 2.1) Push caller's return address onto stack
+   @Main.fibonacciReturnAddress
+   D=A
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.2) Push caller's LCL onto stack
+   @LCL
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.3) Push caller's ARG onto stack
+   @ARG
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.4) Push caller's THIS onto stack
+   @THIS
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.5) Push caller's THAT onto stack
+   @THAT
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 3) Jump to callee function
+   @Main.fibonacci
+   0;JMP
+// label Main.fibonacciReturnAddress
+(Main.fibonacciReturnAddress)
 // add
    // SP--
    @SP
@@ -323,6 +431,60 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
+   // 0) Set return address
+   // 1) Set ARG = SP - numVars
+   @1
+   D=A
+   @SP
+   D=M-D
+   @ARG
+   M=D
+   // 2) Save caller's frame onto stack
+   // 2.1) Push caller's return address onto stack
+   @Main.fibonacciReturnAddress
+   D=A
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.2) Push caller's LCL onto stack
+   @LCL
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.3) Push caller's ARG onto stack
+   @ARG
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.4) Push caller's THIS onto stack
+   @THIS
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 2.5) Push caller's THAT onto stack
+   @THAT
+   D=M
+   @SP
+   A=M
+   M=D
+   @SP
+   M=M+1
+   // 3) Jump to callee function
+   @Main.fibonacci
+   0;JMP
+// label Main.fibonacciReturnAddress
+(Main.fibonacciReturnAddress)
 // label WHILE
 (WHILE)
 // goto WHILE
