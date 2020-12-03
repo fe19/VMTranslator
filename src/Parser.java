@@ -39,11 +39,11 @@ public class Parser {
         while (hasMoreCommands()) {
             String line = scanner.nextLine();
             // remove comments
-            if (line.contains("//")) {
+            if (line.contains("//") && line.length() != 2) {
                 line = line.split("//")[0];   // take only part before comment
             }
             // ignore spaces
-            if (!line.isEmpty()) {
+            if (!line.isEmpty() && !line.substring(0,2).contains("//")) {
                 currentCommand = line;
                 System.out.println("VM command = " + currentCommand);
                 String[] commands = currentCommand.split(" ");
