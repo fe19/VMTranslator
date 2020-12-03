@@ -5,7 +5,12 @@
    @SP
    M=D
 // call Sys.init 0
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @0
    D=A
    @SP
@@ -30,7 +35,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -106,7 +111,12 @@
    @THAT
    M=D
 // call Sys.main 0
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @0
    D=A
    @SP
@@ -131,7 +141,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -352,7 +362,12 @@
    @SP
    M=M+1
 // call Sys.add12 1
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @1
    D=A
    @SP
@@ -377,7 +392,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M

@@ -476,7 +476,13 @@ public class CodeWriter {
 
     public void writeCall(String functionName, int numArgs) throws IOException {
         fileWriter.write("// call " + functionName + " " + numArgs + "\n");
-        fileWriter.write("   // 1) Set ARG = SP - numArgs\n");
+        fileWriter.write("   // 1.0) Save ARG in variable before update (needed for frame)\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @savedARG\n");
+        fileWriter.write("   M=D\n");
+
+        fileWriter.write("   // 1.1) Set ARG = SP - numArgs\n");
         fileWriter.write("   @" + numArgs + "\n");
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
@@ -493,7 +499,6 @@ public class CodeWriter {
         fileWriter.write("   M=D\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=M+1\n");
-
         fileWriter.write("   // 2.2) Push caller's LCL onto stack\n");
         fileWriter.write("   @LCL\n");
         fileWriter.write("   D=M\n");
@@ -503,7 +508,7 @@ public class CodeWriter {
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=M+1\n");
         fileWriter.write("   // 2.3) Push caller's ARG onto stack\n");
-        fileWriter.write("   @ARG\n");
+        fileWriter.write("   @savedARG\n");
         fileWriter.write("   D=M\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   A=M\n");
