@@ -4,8 +4,22 @@
    D=A
    @SP
    M=D
+   // Set LCL, ARG, THIS, THAT to negative initial values
+   @LCL
+   M=-1
+   @ARG
+   M=-1
+   @THIS
+   M=-1
+   @THAT
+   M=-1
 // call Sys.init 0
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @0
    D=A
    @SP
@@ -30,7 +44,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -56,10 +70,8 @@
    // 3) Jump to callee function
    @Sys.init
    0;JMP
-// label Sys.initReturnAddress0
 (Sys.initReturnAddress0)
 // function Main.fibonacci 0
-// label Main.fibonacci
 (Main.fibonacci)
    // Set LCL
    @SP
@@ -123,7 +135,6 @@
 // goto IF_FALSE
    @IF_FALSE
    0;JMP
-// label IF_TRUE
 (IF_TRUE)
 // push argument 0
    // *SP = *(ARG + i)
@@ -139,6 +150,15 @@
    @SP
    M=M+1
 // return
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress0
+   M=D
    // 1) Copy return value to argument 0
    @SP
    M=M-1
@@ -153,15 +173,6 @@
    @SP
    M=D
    // 2) Restore caller's frame
-   // Store return address first before we reset LCL in caller's frame
-   @5
-   D=A
-   @LCL
-   D=M-D
-   A=D
-   D=M
-   @returnAddress
-   M=D
    @1
    D=A
    @LCL
@@ -195,11 +206,10 @@
    @LCL
    M=D
    // 5) Jump to the return address in callers frame
-   @returnAddress
+   @returnAddress0
    D=M
    A=D
    D;JMP
-// label IF_FALSE
 (IF_FALSE)
 // push argument 0
    // *SP = *(ARG + i)
@@ -237,7 +247,12 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @1
    D=A
    @SP
@@ -262,7 +277,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -288,7 +303,6 @@
    // 3) Jump to callee function
    @Main.fibonacci
    0;JMP
-// label Main.fibonacciReturnAddress1
 (Main.fibonacciReturnAddress1)
 // push argument 0
    // *SP = *(ARG + i)
@@ -326,7 +340,12 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @1
    D=A
    @SP
@@ -351,7 +370,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -377,7 +396,6 @@
    // 3) Jump to callee function
    @Main.fibonacci
    0;JMP
-// label Main.fibonacciReturnAddress2
 (Main.fibonacciReturnAddress2)
 // add
    @SP
@@ -392,6 +410,15 @@
    @SP
    M=M+1
 // return
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress1
+   M=D
    // 1) Copy return value to argument 0
    @SP
    M=M-1
@@ -406,15 +433,6 @@
    @SP
    M=D
    // 2) Restore caller's frame
-   // Store return address first before we reset LCL in caller's frame
-   @5
-   D=A
-   @LCL
-   D=M-D
-   A=D
-   D=M
-   @returnAddress
-   M=D
    @1
    D=A
    @LCL
@@ -448,12 +466,11 @@
    @LCL
    M=D
    // 5) Jump to the return address in callers frame
-   @returnAddress
+   @returnAddress1
    D=M
    A=D
    D;JMP
 // function Sys.init 0
-// label Sys.init
 (Sys.init)
    // Set LCL
    @SP
@@ -471,7 +488,12 @@
    @SP
    M=M+1
 // call Main.fibonacci 1
-   // 1) Set ARG = SP - numArgs
+   // 1.0) Save ARG in variable before update (needed for frame)
+   @ARG
+   D=M
+   @savedARG
+   M=D
+   // 1.1) Set ARG = SP - numArgs
    @1
    D=A
    @SP
@@ -496,7 +518,7 @@
    @SP
    M=M+1
    // 2.3) Push caller's ARG onto stack
-   @ARG
+   @savedARG
    D=M
    @SP
    A=M
@@ -522,9 +544,7 @@
    // 3) Jump to callee function
    @Main.fibonacci
    0;JMP
-// label Main.fibonacciReturnAddress3
 (Main.fibonacciReturnAddress3)
-// label WHILE
 (WHILE)
 // goto WHILE
    @WHILE

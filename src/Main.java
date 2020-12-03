@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String pathName = "test/";
-        String content = "NestedCall";
+        String content = "StaticsTest";
 
         File file = new File(pathName + content);
 
