@@ -427,6 +427,15 @@ public class CodeWriter {
         fileWriter.write("   D=A\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=D\n");
+        fileWriter.write("   // Set LCL, ARG, THIS, THAT to negative initial values\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   M=-1\n");
+        fileWriter.write("   @ARG\n");
+        fileWriter.write("   M=-1\n");
+        fileWriter.write("   @THIS\n");
+        fileWriter.write("   M=-1\n");
+        fileWriter.write("   @THAT\n");
+        fileWriter.write("   M=-1\n");
         this.writeCall("Sys.init", 0);
     }
 

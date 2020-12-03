@@ -4,6 +4,15 @@
    D=A
    @SP
    M=D
+   // Set LCL, ARG, THIS, THAT to negative initial values
+   @LCL
+   M=-1
+   @ARG
+   M=-1
+   @THIS
+   M=-1
+   @THAT
+   M=-1
 // call Sys.init 0
    // 1.0) Save ARG in variable before update (needed for frame)
    @ARG
