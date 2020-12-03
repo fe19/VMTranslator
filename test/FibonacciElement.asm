@@ -61,6 +61,11 @@
 // function Main.fibonacci 0
 // label Main.fibonacci
 (Main.fibonacci)
+   // Set LCL
+   @SP
+   D=M
+   @LCL
+   M=D
    // Set #numVars to zero and increment SP
 // push argument 0
    // *SP = *(ARG + i)
@@ -450,6 +455,11 @@
 // function Sys.init 0
 // label Sys.init
 (Sys.init)
+   // Set LCL
+   @SP
+   D=M
+   @LCL
+   M=D
    // Set #numVars to zero and increment SP
 // push constant 4
    // *SP = i

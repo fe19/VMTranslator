@@ -455,6 +455,12 @@ public class CodeWriter {
     public void writeFunction(String functionName, int numVars) throws IOException {
         fileWriter.write("// function " + functionName + " " + numVars + "\n");
         this.writeLabel(functionName);
+        fileWriter.write("   // Set LCL\n");
+        fileWriter.write("   @SP\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   M=D\n");
+
         fileWriter.write("   // Set #numVars to zero and increment SP\n");
         for (int i = 0; i < numVars; i++) {
             fileWriter.write("   @" + i + "\n");
