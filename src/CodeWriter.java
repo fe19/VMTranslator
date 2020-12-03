@@ -14,6 +14,7 @@ public class CodeWriter {
     int countGT = 0;
     int countLT = 0;
     int countReturnAddress = 0;
+    int countReturnVariable = 0;
 
     public CodeWriter(String path, String file, String end) throws IOException {
         fileWriter = new FileWriter(path + file + end);
@@ -440,7 +441,6 @@ public class CodeWriter {
     }
 
     public void writeLabel(String label) throws IOException {
-        fileWriter.write("// label " + label + "\n");
         fileWriter.write("(" + label + ")\n");
     }
 
@@ -463,7 +463,7 @@ public class CodeWriter {
 
     public void writeFunction(String functionName, int numVars) throws IOException {
         fileWriter.write("// function " + functionName + " " + numVars + "\n");
-        this.writeLabel(functionName);
+        writeLabel(functionName);
         fileWriter.write("   // Set LCL\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   D=M\n");
@@ -545,13 +545,23 @@ public class CodeWriter {
         fileWriter.write("   @" + functionName + "\n");
         fileWriter.write("   0;JMP\n");
 
-        this.writeLabel(functionName + "ReturnAddress" + countReturnAddress);
+        writeLabel(functionName + "ReturnAddress" + countReturnAddress);
 
-        this.countReturnAddress++;
+        countReturnAddress++;
     }
 
     public void writeReturn() throws IOException {
         fileWriter.write("// return\n");
+        fileWriter.write("   // Store return address first before we reset LCL in caller's frame\n");
+        fileWriter.write("   @5\n");
+        fileWriter.write("   D=A\n");
+        fileWriter.write("   @LCL\n");
+        fileWriter.write("   D=M-D\n");
+        fileWriter.write("   A=D\n");
+        fileWriter.write("   D=M\n");
+        fileWriter.write("   @returnAddress" + countReturnVariable + "\n");
+        fileWriter.write("   M=D\n");
+
         fileWriter.write("   // 1) Copy return value to argument 0\n");
         fileWriter.write("   @SP\n");
         fileWriter.write("   M=M-1\n");
@@ -568,16 +578,6 @@ public class CodeWriter {
         fileWriter.write("   M=D\n");
 
         fileWriter.write("   // 2) Restore caller's frame\n");
-        fileWriter.write("   // Store return address first before we reset LCL in caller's frame\n");
-        fileWriter.write("   @5\n");
-        fileWriter.write("   D=A\n");
-        fileWriter.write("   @LCL\n");
-        fileWriter.write("   D=M-D\n");
-        fileWriter.write("   A=D\n");
-        fileWriter.write("   D=M\n");
-        fileWriter.write("   @returnAddress\n");
-        fileWriter.write("   M=D\n");
-
         fileWriter.write("   @1\n");
         fileWriter.write("   D=A\n");
         fileWriter.write("   @LCL\n");
@@ -612,10 +612,12 @@ public class CodeWriter {
         fileWriter.write("   M=D\n");
 
         fileWriter.write("   // 5) Jump to the return address in callers frame\n");
-        fileWriter.write("   @returnAddress\n");
+        fileWriter.write("   @returnAddress" + countReturnVariable + "\n");
         fileWriter.write("   D=M\n");
         fileWriter.write("   A=D\n");
         fileWriter.write("   D;JMP\n");
+
+        countReturnVariable++;
     }
 
     public void close() throws IOException {

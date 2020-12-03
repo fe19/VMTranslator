@@ -70,10 +70,8 @@
    // 3) Jump to callee function
    @Sys.init
    0;JMP
-// label Sys.initReturnAddress0
 (Sys.initReturnAddress0)
 // function Sys.init 0
-// label Sys.init
 (Sys.init)
    // Set LCL
    @SP
@@ -176,7 +174,6 @@
    // 3) Jump to callee function
    @Sys.main
    0;JMP
-// label Sys.mainReturnAddress1
 (Sys.mainReturnAddress1)
 // pop temp 1
    // addr = 5 + i
@@ -194,13 +191,11 @@
    @addr2
    A=M
    M=D
-// label LOOP
 (LOOP)
 // goto LOOP
    @LOOP
    0;JMP
 // function Sys.main 5
-// label Sys.main
 (Sys.main)
    // Set LCL
    @SP
@@ -427,7 +422,6 @@
    // 3) Jump to callee function
    @Sys.add12
    0;JMP
-// label Sys.add12ReturnAddress2
 (Sys.add12ReturnAddress2)
 // pop temp 0
    // addr = 5 + i
@@ -559,6 +553,15 @@
    @SP
    M=M+1
 // return
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress0
+   M=D
    // 1) Copy return value to argument 0
    @SP
    M=M-1
@@ -573,15 +576,6 @@
    @SP
    M=D
    // 2) Restore caller's frame
-   // Store return address first before we reset LCL in caller's frame
-   @5
-   D=A
-   @LCL
-   D=M-D
-   A=D
-   D=M
-   @returnAddress
-   M=D
    @1
    D=A
    @LCL
@@ -615,12 +609,11 @@
    @LCL
    M=D
    // 5) Jump to the return address in callers frame
-   @returnAddress
+   @returnAddress0
    D=M
    A=D
    D;JMP
 // function Sys.add12 0
-// label Sys.add12
 (Sys.add12)
    // Set LCL
    @SP
@@ -701,6 +694,15 @@
    @SP
    M=M+1
 // return
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress1
+   M=D
    // 1) Copy return value to argument 0
    @SP
    M=M-1
@@ -715,15 +717,6 @@
    @SP
    M=D
    // 2) Restore caller's frame
-   // Store return address first before we reset LCL in caller's frame
-   @5
-   D=A
-   @LCL
-   D=M-D
-   A=D
-   D=M
-   @returnAddress
-   M=D
    @1
    D=A
    @LCL
@@ -757,7 +750,7 @@
    @LCL
    M=D
    // 5) Jump to the return address in callers frame
-   @returnAddress
+   @returnAddress1
    D=M
    A=D
    D;JMP
