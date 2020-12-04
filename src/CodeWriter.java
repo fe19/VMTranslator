@@ -7,7 +7,6 @@ import java.io.IOException;
 public class CodeWriter {
 
     FileWriter fileWriter;
-    String fileName;
 
     int countAddr = 0;
     int countEQ = 0;
@@ -16,12 +15,11 @@ public class CodeWriter {
     int countReturnAddress = 0;
     int countReturnVariable = 0;
 
-    public CodeWriter(String path, String file, String end) throws IOException {
-        fileWriter = new FileWriter(path + file + end);
-        this.fileName = file;
+    public CodeWriter(String outputPath, String outputFile, String outputEnd) throws IOException {
+        fileWriter = new FileWriter(outputPath + outputFile + outputEnd);
     }
 
-    public void writePushPop(String command, String segment, int index) throws IOException {
+    public void writePushPop(String command, String segment, int index, String fullFileName) throws IOException {
         // Add comment first to indicate VM command that is followed by HACK assembly
         fileWriter.write("// " + command + " " + segment + " " + index + "\n");
         // Assembly for push command
@@ -109,7 +107,7 @@ public class CodeWriter {
                     break;
                 case "static":
                     fileWriter.write("   // *SP = *filename.i\n");
-                    fileWriter.write("   @" + fileName + "." + index + "\n");
+                    fileWriter.write("   @" + fullFileName + "." + index + "\n");
                     fileWriter.write("   D=M\n");
                     fileWriter.write("   @SP\n");
                     fileWriter.write("   A=M\n");
@@ -231,7 +229,7 @@ public class CodeWriter {
                     fileWriter.write("   // *filename.i = *SP\n");
                     fileWriter.write("   A=M\n");
                     fileWriter.write("   D=M\n");
-                    fileWriter.write("   @" + fileName + "." + index + "\n");
+                    fileWriter.write("   @" + fullFileName + "." + index + "\n");
                     fileWriter.write("   M=D\n");
                     break;
                 case "pointer":

@@ -13,15 +13,25 @@ public class Parser {
     CodeWriter codeWriter;
     Scanner scanner;
     String currentCommand;
+    String fullFileName;
 
     public Parser(String outputPath, String outputFile, String outputEnd) throws IOException {
         codeWriter = new CodeWriter(outputPath, outputFile, outputEnd);
         codeWriter.writeInit();
     }
 
-    public void readFile(String path, String fileEnd) throws FileNotFoundException {
-        fileReader = new FileReader(path + fileEnd);
+    public void readFile(String path, String content, String fileEnd) throws FileNotFoundException {
+        fileReader = new FileReader(path + content + fileEnd);
         scanner = new Scanner(fileReader);
+        if (fileEnd.split("\\.").length > 0) {
+            fullFileName = content + fileEnd.split("\\.")[0];
+            if (fullFileName.contains("/")) {
+                String[] fullFileNameElements = fullFileName.split("/");
+                fullFileName = fullFileNameElements[0] + "." + fullFileNameElements[1];
+            }
+        } else {
+            fullFileName = content;
+        }
     }
 
     public void closeFile() throws IOException {
@@ -43,14 +53,14 @@ public class Parser {
                 line = line.split("//")[0];   // take only part before comment
             }
             // ignore spaces
-            if (!line.isEmpty() && !line.substring(0,2).contains("//")) {
+            if (!line.isEmpty() && !line.substring(0, 2).contains("//")) {
                 currentCommand = line;
                 System.out.println("VM command = " + currentCommand);
                 String[] commands = currentCommand.split(" ");
                 switch (commands[0]) {
                     case "push":
                     case "pop":
-                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2].trim()));
+                        codeWriter.writePushPop(commands[0], commands[1], Integer.parseInt(commands[2].trim()), fullFileName);
                         break;
                     case "add":
                     case "sub":

@@ -98,7 +98,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticsTest.0
+   @StaticsTest.Class1.0
    M=D
 // push argument 1
    // *SP = *(ARG + i)
@@ -119,7 +119,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticsTest.1
+   @StaticsTest.Class1.1
    M=D
 // push constant 0
    // *SP = i
@@ -201,7 +201,7 @@
    // Set #numVars to zero and increment SP
 // push static 0
    // *SP = *filename.i
-   @StaticsTest.0
+   @StaticsTest.Class1.0
    D=M
    @SP
    A=M
@@ -210,7 +210,7 @@
    M=M+1
 // push static 1
    // *SP = *filename.i
-   @StaticsTest.1
+   @StaticsTest.Class1.1
    D=M
    @SP
    A=M
@@ -630,7 +630,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticsTest.0
+   @StaticsTest.Class2.0
    M=D
 // push argument 1
    // *SP = *(ARG + i)
@@ -651,7 +651,7 @@
    // *filename.i = *SP
    A=M
    D=M
-   @StaticsTest.1
+   @StaticsTest.Class2.1
    M=D
 // push constant 0
    // *SP = i
@@ -733,7 +733,7 @@
    // Set #numVars to zero and increment SP
 // push static 0
    // *SP = *filename.i
-   @StaticsTest.0
+   @StaticsTest.Class2.0
    D=M
    @SP
    A=M
@@ -742,7 +742,7 @@
    M=M+1
 // push static 1
    // *SP = *filename.i
-   @StaticsTest.1
+   @StaticsTest.Class2.1
    D=M
    @SP
    A=M

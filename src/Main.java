@@ -15,13 +15,13 @@ public class Main {
             File[] files = file.listFiles();
             assert files != null;
             for (File f : files) {
-                parser.readFile(pathName + content + "/", f.getName());
+                parser.readFile(pathName, content + "/", f.getName());
                 parser.advance();
             }
             parser.closeFile();
         } else {
             Parser parser = new Parser(pathName, content, ".asm");
-            parser.readFile(pathName, content + ".vm");
+            parser.readFile(pathName, content, ".vm");
             parser.advance();
             parser.closeFile();
         }
