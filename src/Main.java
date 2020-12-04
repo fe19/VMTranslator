@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String pathName = "test/";
-        String content = "StaticsTest";
+        String content = "FibonacciElement";
         boolean isBootstrapActive = true;   // For files without Sys.init function (e.g., SimpleFunction) set to false
 
         File file = new File(pathName + content);
