@@ -7,11 +7,12 @@ public class Main {
 
         String pathName = "test/";
         String content = "StaticsTest";
+        boolean isBootstrapActive = true;   // For files without Sys.init function (e.g., SimpleFunction) set to false
 
         File file = new File(pathName + content);
 
         if (file.isDirectory()) {
-            Parser parser = new Parser(pathName, content, ".asm");
+            Parser parser = new Parser(pathName, content, ".asm", isBootstrapActive);
             File[] files = file.listFiles();
             assert files != null;
             for (File f : files) {
@@ -20,7 +21,7 @@ public class Main {
             }
             parser.closeFile();
         } else {
-            Parser parser = new Parser(pathName, content, ".asm");
+            Parser parser = new Parser(pathName, content, ".asm", isBootstrapActive);
             parser.readFile(pathName, content, ".vm");
             parser.advance();
             parser.closeFile();

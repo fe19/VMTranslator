@@ -1,12 +1,10 @@
-// init
-   // Set SP
-   @256
-   D=A
-   @SP
-   M=D
 // function SimpleFunction.test 2
-// label SimpleFunction.test
 (SimpleFunction.test)
+   // Set LCL
+   @SP
+   D=M
+   @LCL
+   M=D
    // Set #numVars to zero and increment SP
    @0
    D=A
@@ -122,6 +120,15 @@
    @SP
    M=M+1
 // return
+   // Store return address first before we reset LCL in caller's frame
+   @5
+   D=A
+   @LCL
+   D=M-D
+   A=D
+   D=M
+   @returnAddress0
+   M=D
    // 1) Copy return value to argument 0
    @SP
    M=M-1
@@ -136,15 +143,6 @@
    @SP
    M=D
    // 2) Restore caller's frame
-   // Store return address first before we reset LCL in caller's frame
-   @5
-   D=A
-   @LCL
-   D=M-D
-   A=D
-   D=M
-   @returnAddress
-   M=D
    @1
    D=A
    @LCL
@@ -178,7 +176,7 @@
    @LCL
    M=D
    // 5) Jump to the return address in callers frame
-   @returnAddress
+   @returnAddress0
    D=M
    A=D
    D;JMP

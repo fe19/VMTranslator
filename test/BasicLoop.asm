@@ -5,7 +5,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop local 0
@@ -16,7 +15,6 @@
    D=D+M
    @addr0
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -25,7 +23,6 @@
    @addr0
    A=M
    M=D
-// label LOOP_START
 (LOOP_START)
 // push argument 0
    // *SP = *(ARG + i)
@@ -38,7 +35,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push local 0
@@ -52,14 +48,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -67,7 +60,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop local 0
@@ -78,7 +70,6 @@
    D=D+M
    @addr1
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -98,7 +89,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 1
@@ -108,11 +98,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -123,7 +111,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // pop argument 0
@@ -134,7 +121,6 @@
    D=D+M
    @addr2
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -154,18 +140,16 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // goto-if LOOP_START
-   // SP--
    @SP
    M=M-1
    // if (x > y) goto LABEL
    A=M
    D=M
    @LOOP_START
-   D;JGT
+   D;JNE
 // push local 0
    // *SP = *(LCL + i)
    @0
@@ -177,6 +161,5 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1

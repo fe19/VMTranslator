@@ -456,7 +456,7 @@ public class CodeWriter {
         fileWriter.write("   A=M\n");
         fileWriter.write("   D=M\n");
         fileWriter.write("   @" + label + "\n");
-        fileWriter.write("   D;JLT\n");
+        fileWriter.write("   D;JNE\n");
     }
 
     public void writeFunction(String functionName, int numVars) throws IOException {

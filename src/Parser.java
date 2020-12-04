@@ -15,14 +15,18 @@ public class Parser {
     String currentCommand;
     String fullFileName;
 
-    public Parser(String outputPath, String outputFile, String outputEnd) throws IOException {
+    public Parser(String outputPath, String outputFile, String outputEnd, boolean isBootstrapActive) throws IOException {
         codeWriter = new CodeWriter(outputPath, outputFile, outputEnd);
-        codeWriter.writeInit();
+
+        if (isBootstrapActive) {
+            codeWriter.writeInit();  // For files without Sys.init function (e.g., SimpleFunction) comment this line
+        }
     }
 
     public void readFile(String path, String content, String fileEnd) throws FileNotFoundException {
         fileReader = new FileReader(path + content + fileEnd);
         scanner = new Scanner(fileReader);
+
         if (fileEnd.split("\\.").length > 0) {
             fullFileName = content + fileEnd.split("\\.")[0];
             if (fullFileName.contains("/")) {

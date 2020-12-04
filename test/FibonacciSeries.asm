@@ -1,12 +1,3 @@
-// init
-   // Set SP
-   @256
-   D=A
-   @SP
-   M=D
-   // Call Sys.init
-   @Sys.init
-   0;JMP
 // push argument 1
    // *SP = *(ARG + i)
    @1
@@ -18,11 +9,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop pointer 1
-   // SP--
    @SP
    M=M-1
    // D = *SP
@@ -39,7 +28,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop that 0
@@ -50,7 +38,6 @@
    D=D+M
    @addr1
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -66,7 +53,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop that 1
@@ -77,7 +63,6 @@
    D=D+M
    @addr2
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -97,7 +82,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 2
@@ -107,11 +91,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -122,7 +104,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // pop argument 0
@@ -133,7 +114,6 @@
    D=D+M
    @addr3
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -142,7 +122,6 @@
    @addr3
    A=M
    M=D
-// label MAIN_LOOP_START
 (MAIN_LOOP_START)
 // push argument 0
    // *SP = *(ARG + i)
@@ -155,22 +134,19 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // goto-if COMPUTE_ELEMENT
-   // SP--
    @SP
    M=M-1
    // if (x > y) goto LABEL
    A=M
    D=M
    @COMPUTE_ELEMENT
-   D;JGT
+   D;JNE
 // goto END_PROGRAM
    @END_PROGRAM
    0;JMP
-// label COMPUTE_ELEMENT
 (COMPUTE_ELEMENT)
 // push that 0
    // *SP = *(THAT + i)
@@ -183,7 +159,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push that 1
@@ -197,14 +172,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -212,7 +184,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop that 2
@@ -223,7 +194,6 @@
    D=D+M
    @addr4
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -239,7 +209,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 1
@@ -249,14 +218,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -264,11 +230,9 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop pointer 1
-   // SP--
    @SP
    M=M-1
    // D = *SP
@@ -289,7 +253,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 1
@@ -299,11 +262,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -314,7 +275,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // pop argument 0
@@ -325,7 +285,6 @@
    D=D+M
    @addr6
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -337,5 +296,4 @@
 // goto MAIN_LOOP_START
    @MAIN_LOOP_START
    0;JMP
-// label END_PROGRAM
 (END_PROGRAM)
