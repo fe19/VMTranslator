@@ -5,7 +5,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop local 0
@@ -16,7 +15,6 @@
    D=D+M
    @addr0
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -32,7 +30,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 22
@@ -42,7 +39,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop argument 2
@@ -53,7 +49,6 @@
    D=D+M
    @addr1
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -70,7 +65,6 @@
    D=D+M
    @addr2
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -86,7 +80,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop this 6
@@ -97,7 +90,6 @@
    D=D+M
    @addr3
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -113,7 +105,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 45
@@ -123,7 +114,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop that 5
@@ -134,7 +124,6 @@
    D=D+M
    @addr4
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -151,7 +140,6 @@
    D=D+M
    @addr5
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -167,7 +155,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop temp 6
@@ -178,7 +165,6 @@
    D=D+A
    @addr6
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -198,7 +184,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push that 5
@@ -212,14 +197,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -227,7 +209,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // push argument 1
@@ -241,11 +222,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -256,7 +235,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // push this 6
@@ -270,7 +248,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push this 6
@@ -284,14 +261,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -299,11 +273,9 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -314,7 +286,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // push temp 6
@@ -328,14 +299,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -343,6 +311,5 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1

@@ -5,11 +5,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop pointer 0
-   // SP--
    @SP
    M=M-1
    // D = *SP
@@ -26,11 +24,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop pointer 1
-   // SP--
    @SP
    M=M-1
    // D = *SP
@@ -47,7 +43,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop this 2
@@ -58,7 +53,6 @@
    D=D+M
    @addr2
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -74,7 +68,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop that 6
@@ -85,7 +78,6 @@
    D=D+M
    @addr3
    M=D
-   // SP--
    @SP
    M=M-1
    // *addr = *SP
@@ -101,7 +93,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push pointer 1
@@ -111,14 +102,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -126,7 +114,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // push this 2
@@ -140,11 +127,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -155,7 +140,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // push that 6
@@ -169,14 +153,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -184,6 +165,5 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1

@@ -5,7 +5,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 17
@@ -15,16 +14,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // eq
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -41,7 +37,6 @@
    A=M
    M=-1
 (EQEND0)
-   // SP++
    @SP
    M=M+1
 // push constant 17
@@ -51,7 +46,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 16
@@ -61,16 +55,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // eq
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -87,7 +78,6 @@
    A=M
    M=-1
 (EQEND1)
-   // SP++
    @SP
    M=M+1
 // push constant 16
@@ -97,7 +87,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 17
@@ -107,16 +96,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // eq
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -133,7 +119,6 @@
    A=M
    M=-1
 (EQEND2)
-   // SP++
    @SP
    M=M+1
 // push constant 892
@@ -143,7 +128,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 891
@@ -153,16 +137,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // lt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -179,7 +160,6 @@
    A=M
    M=-1
 (LTEND0)
-   // SP++
    @SP
    M=M+1
 // push constant 891
@@ -189,7 +169,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 892
@@ -199,16 +178,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // lt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -225,7 +201,6 @@
    A=M
    M=-1
 (LTEND1)
-   // SP++
    @SP
    M=M+1
 // push constant 891
@@ -235,7 +210,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 891
@@ -245,16 +219,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // lt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -271,7 +242,6 @@
    A=M
    M=-1
 (LTEND2)
-   // SP++
    @SP
    M=M+1
 // push constant 32767
@@ -281,7 +251,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 32766
@@ -291,16 +260,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // gt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -317,7 +283,6 @@
    A=M
    M=-1
 (GTEND0)
-   // SP++
    @SP
    M=M+1
 // push constant 32766
@@ -327,7 +292,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 32767
@@ -337,16 +301,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // gt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -363,7 +324,6 @@
    A=M
    M=-1
 (GTEND1)
-   // SP++
    @SP
    M=M+1
 // push constant 32766
@@ -373,7 +333,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 32766
@@ -383,16 +342,13 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // gt
-   // SP--
    @SP
    M=M-1
    A=M
    D=M
-   // SP--
    @SP
    M=M-1
    A=M
@@ -409,7 +365,6 @@
    A=M
    M=-1
 (GTEND2)
-   // SP++
    @SP
    M=M+1
 // push constant 57
@@ -419,7 +374,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 31
@@ -429,7 +383,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 53
@@ -439,14 +392,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -454,7 +404,6 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 112
@@ -464,11 +413,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -479,21 +426,17 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // neg
-   // SP--
    @SP
    M=M-1
    // *SP = -*SP
    A=M
    M=-M
-   // SP++
    @SP
    M=M+1
 // and
-   // SP--
    @SP
    M=M-1
    // *SP = X & Y
@@ -503,7 +446,6 @@
    M=M-1
    A=M
    M=D&M
-   // SP++
    @SP
    M=M+1
 // push constant 82
@@ -513,11 +455,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // or
-   // SP--
    @SP
    M=M-1
    // *SP = X | Y
@@ -527,16 +467,13 @@
    M=M-1
    A=M
    M=D|M
-   // SP++
    @SP
    M=M+1
 // not
-   // SP--
    @SP
    M=M-1
    // *SP = !*SP
    A=M
    M=!M
-   // SP++
    @SP
    M=M+1

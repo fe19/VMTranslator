@@ -5,7 +5,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 8
@@ -15,14 +14,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -30,6 +26,5 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1

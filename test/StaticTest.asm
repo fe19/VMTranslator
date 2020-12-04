@@ -5,7 +5,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 333
@@ -15,7 +14,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push constant 888
@@ -25,11 +23,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // pop static 8
-   // SP--
    @SP
    M=M-1
    // *filename.i = *SP
@@ -38,7 +34,6 @@
    @StaticTest.8
    M=D
 // pop static 3
-   // SP--
    @SP
    M=M-1
    // *filename.i = *SP
@@ -47,7 +42,6 @@
    @StaticTest.3
    M=D
 // pop static 1
-   // SP--
    @SP
    M=M-1
    // *filename.i = *SP
@@ -62,7 +56,6 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // push static 1
@@ -72,11 +65,9 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // sub
-   // SP--
    @SP
    M=M-1
    // *SP = X - Y
@@ -87,7 +78,6 @@
    A=M
    D=M-D
    M=D
-   // SP++
    @SP
    M=M+1
 // push static 8
@@ -97,14 +87,11 @@
    @SP
    A=M
    M=D
-   // SP++
    @SP
    M=M+1
 // add
-   // SP--
    @SP
    M=M-1
-   // SP = X + Y
    A=M
    D=M
    @SP
@@ -112,6 +99,5 @@
    A=M
    D=D+M
    M=D
-   // SP++
    @SP
    M=M+1
